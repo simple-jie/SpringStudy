@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: test
+
+server:
+  port: 8083
+
+app:
+  name: application
+  number:  ${random.int}
+  uuid: ${random.uuid}
+  max: ${random.int(10)}
+  value: ${random.value}
+  greeting: hi,i'm  ${my.name}
