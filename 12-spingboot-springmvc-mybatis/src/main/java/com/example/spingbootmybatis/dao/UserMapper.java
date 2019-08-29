@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserMapper {
     //@Insert("insert into user(name,age) values(#{name},#{age})")
-    void insertUser(User user);
+    int insertUser(User user);
 
     List<User> queryAllUser();
 

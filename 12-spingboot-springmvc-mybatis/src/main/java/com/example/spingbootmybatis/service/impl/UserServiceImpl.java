@@ -41,4 +41,13 @@ public class UserServiceImpl implements UserService {
     public void delete(Integer id) {
         userMapper.delete(id);
     }
+
+    @Override
+    @Transactional
+    public void testTransactional(User user) {
+        userMapper.insertUser(user);
+//        int a = 1/0;
+        user.setAge(8);
+        userMapper.updateUser(user);
+    }
 }

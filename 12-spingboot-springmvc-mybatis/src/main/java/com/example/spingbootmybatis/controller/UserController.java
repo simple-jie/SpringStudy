@@ -5,10 +5,7 @@ import com.example.spingbootmybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,6 +50,7 @@ public class UserController {
     public String queryByID(@PathVariable Integer id, Model model) {
         User user = userService.queryByID(id);
         model.addAttribute("user", user);
+        System.out.println(">>>>>>>>>>>>>>>>>>>> /update/{id} " + user.hashCode());
         return "updateUser";
     }
 
@@ -60,18 +58,32 @@ public class UserController {
     public String updateByID(Integer id, Model model) {
         User user = userService.queryByID(id);
         model.addAttribute("user", user);
+        System.out.println(">>>>>>>>>>>>>>>>>>>> updateByID " + user.hashCode());
         return "updateUser";
     }
 
     @RequestMapping("edit")
     public String editUser(User user) {
         this.userService.editUser(user);
+        System.out.println(">>>>>>>>>>>>>>>>>>>> editUser " + user.hashCode());
         return "ok";
     }
 
-    @RequestMapping(value = "delete")
+    @RequestMapping(value = "deleteByID")
     public String deleteUser(Integer id) {
         this.userService.delete(id);
+        return "ok";
+    }
+
+    @RequestMapping(value = "transactional")
+    public String testTransactional(@RequestBody User user) {
+
+
+        try {
+            this.userService.testTransactional(user);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
         return "ok";
     }
 }
